@@ -1,0 +1,3 @@
+rootProject.name = 'SimpleRNApp'
+
+include ':app'
