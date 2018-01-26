@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Button, Text, TextInput, StyleSheet, Image } from 'react-native';
+
 import loginPic from './assets/loginpic.png';
 
 const style = StyleSheet.create({
@@ -39,7 +40,7 @@ const style = StyleSheet.create({
 
 class Login extends React.Component {
   onPress = () => {
-    console.log('Hello world!');
+
   }
 
   render() {
@@ -59,8 +60,7 @@ class Login extends React.Component {
             style={style.textInput}
           />
           <Button
-            containerViewStyle={{ marginTop: 30 }}
-            style={{ backgroundColor: '#588bd4' }}
+            color="#588bd4"
             onPress={this.onPress}
             title="Login"
           />
