@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Button, Text, TextInput, StyleSheet, Image } from 'react-native';
 
 import loginPic from './assets/loginpic.png';
@@ -39,8 +40,19 @@ const style = StyleSheet.create({
 });
 
 class Login extends React.Component {
-  onPress = () => {
+  state = { username: '', password: '' }
 
+  onChange = type => (text) => {
+    this.setState({
+      [`${type}`]: text,
+    });
+  }
+
+  onPress = () => {
+    const { login } = this.props;
+    const { username, password } = this.state;
+
+    login(username, password);
   }
 
   render() {
@@ -54,10 +66,12 @@ class Login extends React.Component {
           <TextInput
             placeholder="Username"
             style={style.textInput}
+            onChangeText={(this.onChange('username'))}
           />
           <TextInput
             placeholder="Password"
             style={style.textInput}
+            onChangeText={this.onChange('password')}
           />
           <Button
             color="#588bd4"
@@ -71,7 +85,7 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  //
+  login: PropTypes.func.isRequired,
 };
 
 export default Login;

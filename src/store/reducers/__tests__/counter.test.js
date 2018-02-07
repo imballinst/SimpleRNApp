@@ -1,29 +1,12 @@
-import counter from '../counter';
+import counter, { modifyVal, modifySync } from '../counter';
 
 describe('counter', () => {
   // Default state
   const defaultState = [
-    { id: 0, counter: 1, sync: true },
-    { id: 1, counter: 2, sync: true },
-    { id: 2, counter: 3, sync: true },
+    { id: 0, val: 1, sync: true },
+    { id: 1, val: 2, sync: true },
+    { id: 2, val: 3, sync: true },
   ];
-
-  // Helper functions
-  const modifyCounter = (state, id, newCounter, newStatus) => {
-    const stateObject = state.find(obj => obj.id === id);
-
-    return state.slice(0, id)
-      .concat({ ...stateObject, counter: newCounter, sync: newStatus })
-      .concat(state.slice(id + 1, state.length));
-  };
-
-  const modifySync = (state, id, newStatus) => {
-    const stateObject = state.find(obj => obj.id === id);
-
-    return state.slice(0, id)
-      .concat({ ...stateObject, sync: newStatus })
-      .concat(state.slice(id + 1, state.length));
-  };
 
   // Initial state
   it('should provide the initial state', () => {
@@ -36,7 +19,7 @@ describe('counter', () => {
     const payload = { id: 0, currentVal: 1 };
 
     expect(counter(defaultState, { type, payload }))
-      .toEqual(modifyCounter(defaultState, 0, 2, false));
+      .toEqual(modifyVal(defaultState, 0, 2, false));
   });
 
   it('should handle DECREMENT_REQUEST action', () => {
@@ -44,7 +27,7 @@ describe('counter', () => {
     const payload = { id: 0, currentVal: 1 };
 
     expect(counter(defaultState, { type, payload }))
-      .toEqual(modifyCounter(defaultState, 0, 0, false));
+      .toEqual(modifyVal(defaultState, 0, 0, false));
   });
 
   it('should handle RESET_REQUEST action', () => {
@@ -52,7 +35,7 @@ describe('counter', () => {
     const payload = { id: 0, currentVal: 1 };
 
     expect(counter(defaultState, { type, payload }))
-      .toEqual(modifyCounter(defaultState, 0, 0, false));
+      .toEqual(modifyVal(defaultState, 0, 0, false));
   });
 
   // Commit actions
@@ -87,7 +70,7 @@ describe('counter', () => {
     const meta = { lastVal: 1 };
 
     expect(counter(defaultState, { type, payload, meta }))
-      .toEqual(modifyCounter(defaultState, 0, 1, true));
+      .toEqual(modifyVal(defaultState, 0, 1, true));
   });
 
   it('should handle DECREMENT_ROLLBACK action', () => {
@@ -96,7 +79,7 @@ describe('counter', () => {
     const meta = { lastVal: 1 };
 
     expect(counter(defaultState, { type, payload, meta }))
-      .toEqual(modifyCounter(defaultState, 0, 1, true));
+      .toEqual(modifyVal(defaultState, 0, 1, true));
   });
 
   it('should handle RESET_ROLLBACK action', () => {
@@ -105,6 +88,6 @@ describe('counter', () => {
     const meta = { lastVal: 1 };
 
     expect(counter(defaultState, { type, payload, meta }))
-      .toEqual(modifyCounter(defaultState, 0, 1, true));
+      .toEqual(modifyVal(defaultState, 0, 1, true));
   });
 });

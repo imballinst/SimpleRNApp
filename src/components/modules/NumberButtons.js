@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Button, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import { View, Button, Text, StyleSheet } from 'react-native';
 
 const style = StyleSheet.create({
   row: {
@@ -15,29 +15,31 @@ const style = StyleSheet.create({
 });
 
 const NumberButtons = ({
-  num, onIncrement, onDecrement, onReset,
+  id, num, sync, onModifyCounter,
 }) => (
   <View>
-    <View><Text style={style.textCenter}>{num}</Text></View>
+    <View>
+      <Text style={style.textCenter}>{num} | {sync ? 'Sync' : 'Not sync'}</Text>
+    </View>
     <View style={style.row}>
       <View style={style.flex1}>
-        <Button onPress={onIncrement} title="Increment" />
+        <Button onPress={onModifyCounter(id, 'increment')} title="Increment" />
       </View>
       <View style={style.flex1}>
-        <Button color="#00aa00" onPress={onDecrement} title="Decrement" />
+        <Button color="#00aa00" onPress={onModifyCounter(id, 'decrement')} title="Decrement" />
       </View>
       <View style={style.flex1}>
-        <Button color="#ff0000" onPress={onReset} title="Reset" />
+        <Button color="#ff0000" onPress={onModifyCounter(id, 'reset')} title="Reset" />
       </View>
     </View>
   </View>
 );
 
 NumberButtons.propTypes = {
+  id: PropTypes.number.isRequired,
   num: PropTypes.number.isRequired,
-  onIncrement: PropTypes.func.isRequired,
-  onDecrement: PropTypes.func.isRequired,
-  onReset: PropTypes.func.isRequired,
+  sync: PropTypes.bool.isRequired,
+  onModifyCounter: PropTypes.func.isRequired,
 };
 
 export default NumberButtons;

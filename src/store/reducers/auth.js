@@ -4,19 +4,19 @@ const defaultState = {
 };
 
 const auth = (state = defaultState, action) => {
-  const { type } = action;
+  const { type, username = '' } = action;
 
   switch (type) {
     case 'LOGIN': {
       return Object.assign({}, state, {
         isLoggedIn: true,
-        username: action.username,
+        username,
       });
     }
     case 'LOGOUT': {
       return Object.assign({}, state, {
         isLoggedIn: false,
-        username: '',
+        username,
       });
     }
     default: return state;

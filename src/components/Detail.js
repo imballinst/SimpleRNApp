@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Button, Text, StyleSheet } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 const style = StyleSheet.create({
   viewStyle: {
@@ -11,8 +13,8 @@ const style = StyleSheet.create({
 });
 
 class Detail extends React.Component {
-  onPress = () => {
-
+  onPressBack = () => {
+    this.props.navigation.navigate(NavigationActions.navigate({ routeName: 'Home' }));
   }
 
   render() {
@@ -20,14 +22,14 @@ class Detail extends React.Component {
       <View style={style.viewStyle}>
         <Text>This is Detail View, but it doesn&apos;t appear in Drawer</Text>
 
-        <Button onPress={this.onPress} title="Back" />
+        <Button onPress={this.onPressBack} title="Back" />
       </View>
     );
   }
 }
 
 Detail.propTypes = {
-  //
+  navigation: PropTypes.object.isRequired,
 };
 
 export default Detail;

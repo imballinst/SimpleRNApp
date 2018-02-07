@@ -1,32 +1,60 @@
+import { NavigationActions } from 'react-navigation';
+
+const TYPE_LOGIN_ATTEMPT = 'LOGIN_ATTEMPT';
+const TYPE_LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const TYPE_LOGIN_INVALID = 'LOGIN_INVALID';
+const TYPE_LOGOUT_ATTEMPT = 'LOGOUT_ATTEMPT';
+const TYPE_LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+
 const login = (username, password) => (dispatch) => {
-  const promise = new Promise((resolve) => {
+  const promise = new Promise((resolve, reject) => {
     dispatch({
-      type: 'LOGIN_ATTEMPT',
+      type: TYPE_LOGIN_ATTEMPT,
       username,
+      password,
     });
 
-    resolve();
-  });
-
-  return promise.then(() => {
-    if (password !== '') {
-      // Pretend that we're logging in within 1 second
-      setTimeout(() => {
-        dispatch({
-          type: 'LOGIN',
+    // Pretend that we're logging in within 1 second
+    setTimeout(() => {
+      if (password !== '') {
+        resolve({
+          type: TYPE_LOGIN_SUCCESS,
           username,
         });
-      }, 1000);
-    } else {
-      dispatch({
-        type: 'LOGIN_INVALID',
-        message: 'Password is empty!',
-      });
-    }
+      } else {
+        reject();
+      }
+    }, 1000);
   });
+
+  return promise.then(obj => dispatch(obj))
+    .then(() => dispatch(NavigationActions.navigate({ routeName: 'Home' })))
+    .catch(() => dispatch({
+      type: TYPE_LOGIN_INVALID,
+      message: 'Password is empty!',
+    }));
 };
 
-// maybe make it similar like login
-const logout = () => ({ type: 'LOGOUT' });
+const logout = () => (dispatch) => {
+  const promise = new Promise((resolve) => {
+    dispatch({ type: TYPE_LOGOUT_ATTEMPT });
 
-export { login, logout };
+    // Pretend that we're logging out within 1 second
+    setTimeout(() => {
+      resolve({ type: TYPE_LOGOUT_SUCCESS });
+    }, 1000);
+  });
+
+  return promise.then(obj => dispatch(obj))
+    .then(() => dispatch(NavigationActions.navigate({ routeName: 'Login' })));
+};
+
+export {
+  TYPE_LOGIN_ATTEMPT,
+  TYPE_LOGIN_INVALID,
+  TYPE_LOGIN_SUCCESS,
+  TYPE_LOGOUT_ATTEMPT,
+  TYPE_LOGOUT_SUCCESS,
+  login,
+  logout,
+};
