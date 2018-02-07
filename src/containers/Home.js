@@ -3,10 +3,9 @@ import { logout } from '../actions/auth';
 import { increment, decrement, reset } from '../actions/counter';
 import Home from '../components/Home';
 
-const mapStateToProps = ({ nav, counter, auth }) => ({
-  nav,
+const mapStateToProps = ({ counter, auth }) => ({
   counter,
-  isLoggedIn: auth.isLoggedIn,
+  username: auth.username,
 });
 const mapDispatchToProps = {
   logout, increment, decrement, reset,
