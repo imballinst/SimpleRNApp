@@ -52,6 +52,15 @@ class Login extends React.Component {
     this.props.refreshLoginView();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.state.username !== '' && nextProps.username === '') {
+      this.setState({
+        username: '',
+        password: '',
+      });
+    }
+  }
+
   onChange = type => (text) => {
     this.setState({
       [`${type}`]: text,
@@ -79,12 +88,15 @@ class Login extends React.Component {
           <TextInput
             placeholder="Username"
             style={style.textInput}
+            value={this.state.username}
             onChangeText={(this.onChange('username'))}
           />
           <TextInput
             placeholder="Password"
             style={style.textInput}
+            value={this.state.password}
             onChangeText={this.onChange('password')}
+            secureTextEntry
           />
           <Text style={textMessageStyle}>{message}</Text>
           <Button
@@ -101,6 +113,7 @@ class Login extends React.Component {
 Login.propTypes = {
   isError: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
   refreshLoginView: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
 };

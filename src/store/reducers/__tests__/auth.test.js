@@ -63,9 +63,8 @@ describe('auth', () => {
 
     expect(auth(loggedInState, { type }))
       .toEqual({
-        ...defaultState,
+        ...loggedInState,
         isLoggedIn: false,
-        username: '',
       });
   });
 
@@ -79,8 +78,9 @@ describe('auth', () => {
 
     expect(auth(afterErrorState, { type }))
       .toEqual({
-        ...defaultState,
+        ...afterErrorState,
         message: '',
+        username: '',
         isError: false,
       });
   });

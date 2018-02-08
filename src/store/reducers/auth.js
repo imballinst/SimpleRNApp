@@ -44,13 +44,13 @@ const auth = (state = defaultState, action) => {
       return {
         ...state,
         isLoggedIn: false,
-        username,
       };
     }
     case TYPE_LOGIN_REFRESH: {
       return {
         ...state,
         message,
+        username,
         isError: false,
       };
     }

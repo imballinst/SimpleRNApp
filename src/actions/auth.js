@@ -7,6 +7,7 @@ const TYPE_LOGOUT_ATTEMPT = 'LOGOUT_ATTEMPT';
 const TYPE_LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 const TYPE_LOGIN_REFRESH = 'LOGIN_REFRESH';
 
+const refreshLoginView = () => ({ type: TYPE_LOGIN_REFRESH });
 const login = (username, password) => (dispatch) => {
   const promise = new Promise((resolve, reject) => {
     dispatch({
@@ -47,10 +48,9 @@ const logout = () => (dispatch) => {
   });
 
   return promise.then(obj => dispatch(obj))
-    .then(() => dispatch(NavigationActions.navigate({ routeName: 'Login' })));
+    .then(() => dispatch(NavigationActions.navigate({ routeName: 'Login' })))
+    .then(() => setTimeout(() => dispatch(refreshLoginView()), 500));
 };
-
-const refreshLoginView = () => ({ type: TYPE_LOGIN_REFRESH });
 
 export {
   TYPE_LOGIN_ATTEMPT,
