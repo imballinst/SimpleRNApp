@@ -37,10 +37,20 @@ const style = StyleSheet.create({
     marginBottom: 15,
     alignItems: 'stretch',
   },
+  textProcessMessage: {
+    color: '#0000ff',
+  },
+  textErrorMessage: {
+    color: '#ff0000',
+  },
 });
 
 class Login extends React.Component {
   state = { username: '', password: '' }
+
+  componentDidMount() {
+    this.props.refreshLoginView();
+  }
 
   onChange = type => (text) => {
     this.setState({
@@ -56,6 +66,9 @@ class Login extends React.Component {
   }
 
   render() {
+    const { message, isError } = this.props;
+    const textMessageStyle = isError ? style.textErrorMessage : style.textProcessMessage;
+
     return (
       <View style={style.viewStyle}>
         <View style={style.loginImageContainer}>
@@ -73,6 +86,7 @@ class Login extends React.Component {
             style={style.textInput}
             onChangeText={this.onChange('password')}
           />
+          <Text style={textMessageStyle}>{message}</Text>
           <Button
             color="#588bd4"
             onPress={this.onPress}
@@ -85,6 +99,9 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
+  isError: PropTypes.bool.isRequired,
+  message: PropTypes.string.isRequired,
+  refreshLoginView: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
 };
 

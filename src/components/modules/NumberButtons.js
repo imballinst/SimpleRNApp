@@ -23,13 +23,13 @@ const NumberButtons = ({
     </View>
     <View style={style.row}>
       <View style={style.flex1}>
-        <Button onPress={onModifyCounter(id, 'increment')} title="Increment" />
+        <Button onPress={onModifyCounter(id, 'increment', num)} title="Increment" />
       </View>
       <View style={style.flex1}>
-        <Button color="#00aa00" onPress={onModifyCounter(id, 'decrement')} title="Decrement" />
+        <Button color="#00aa00" onPress={onModifyCounter(id, 'decrement', num)} title="Decrement" />
       </View>
       <View style={style.flex1}>
-        <Button color="#ff0000" onPress={onModifyCounter(id, 'reset')} title="Reset" />
+        <Button color="#ff0000" onPress={onModifyCounter(id, 'reset', num)} title="Reset" />
       </View>
     </View>
   </View>

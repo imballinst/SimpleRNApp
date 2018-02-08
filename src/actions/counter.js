@@ -19,25 +19,30 @@ const actionCreator = (url, type, id, currentVal) => ({
   },
 });
 
-const increment = (currentVal, id) => actionCreator(
+const increment = (id, currentVal) => actionCreator(
   'https://dog.ceo/api/breeds/list/all',
   'INCREMENT',
   id,
   currentVal,
 );
 
-const decrement = (currentVal, id) => actionCreator(
+const decrement = (id, currentVal) => actionCreator(
   'https://dog.ceo/api/breeds/list/all',
   'DECREMENT',
   id,
   currentVal,
 );
 
-const reset = (currentVal, id) => actionCreator(
+const reset = (id, currentVal) => actionCreator(
   'https://dog.ceo/api/breeds/list/all',
   'RESET',
   id,
   currentVal,
 );
 
-export { increment, decrement, reset };
+export {
+  actionCreator,
+  increment,
+  decrement,
+  reset,
+};

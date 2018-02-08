@@ -4,8 +4,10 @@ import {
   TYPE_LOGIN_SUCCESS,
   TYPE_LOGOUT_ATTEMPT,
   TYPE_LOGOUT_SUCCESS,
+  TYPE_LOGIN_REFRESH,
   login,
   logout,
+  refreshLoginView,
 } from '../auth';
 import configureMockStore from 'redux-mock-store';
 import { NavigationActions } from 'react-navigation';
@@ -41,5 +43,9 @@ describe('auth', () => {
       // return of async actions
       expect(store.getActions()).toEqual(expectedActions);
     });
+  });
+
+  it('should return refresh login action creator', () => {
+    expect(refreshLoginView()).toEqual({ type: TYPE_LOGIN_REFRESH });
   });
 });

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet, Button, Text } from 'react-native';
-import { NavigationActions } from 'react-navigation';
 
 import NumberButtons from './modules/NumberButtons';
 
@@ -14,19 +13,20 @@ const style = StyleSheet.create({
     paddingHorizontal: '16.5%',
     height: '100%',
   },
-  titleStyle: {
-    fontSize: 24,
+  titleviewStyle: {
     marginBottom: 30,
+  },
+  titleTextStyle: {
+    fontSize: 24,
   },
 });
 
 class Home extends React.Component {
-  onModifyCounter = (id, type) => () => {
+  onModifyCounter = (id, type, currentVal) => () => {
     const {
       increment,
       decrement,
       reset,
-      counter,
     } = this.props;
     const dispatcher = {
       increment,
@@ -34,11 +34,11 @@ class Home extends React.Component {
       reset,
     };
 
-    dispatcher[type](id, counter[id].val);
+    dispatcher[type](id, currentVal);
   }
 
   onPressDetailView = () => {
-    this.props.navigation.navigate(NavigationActions.navigate({ routeName: 'Detail' }));
+    this.props.navigation.navigate('Detail');
   }
 
   onLogout = () => {
@@ -49,6 +49,7 @@ class Home extends React.Component {
     const { counter, username } = this.props;
     const groupNumberButtons = counter.map(({ id, val, sync }) => (
       <NumberButtons
+        key={`numbtns-${id + 1}`}
         id={id}
         num={val}
         sync={sync}
@@ -58,7 +59,9 @@ class Home extends React.Component {
 
     return (
       <View style={style.viewStyle}>
-        <View style={style.titleStyle}><Text>Hi, ${username}!</Text></View>
+        <View style={style.titleViewStyle}>
+          <Text style={style.titleTextStyle}>Hi, {username}!</Text>
+        </View>
 
         {groupNumberButtons}
 
