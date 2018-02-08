@@ -10,12 +10,12 @@ const style = StyleSheet.create({
   },
 });
 
-const Detail = () => (
+const Stub = () => (
   <View style={style.viewStyle}>
     <Text>This is Stub view, accessible only via Drawer</Text>
   </View>
 );
 
-Detail.propTypes = {};
+Stub.propTypes = {};
 
-export default Detail;
+export default Stub;

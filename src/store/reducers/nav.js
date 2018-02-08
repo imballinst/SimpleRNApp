@@ -27,6 +27,7 @@ const nav = (state = initialNavState, action) => {
     if (firstIndexOfView === -1 || isDrawer) {
       return getStateForAction(action, state);
     }
+
     const newIndex = firstIndexOfView;
     const newRoutes = [...state.routes].splice(0, newIndex + 1);
     const newNav = { index: newIndex, routes: newRoutes };
